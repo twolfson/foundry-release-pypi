@@ -26,5 +26,8 @@ exports.fixtureDir = function (name) {
   before(function moveToDestPath () {
     process.chdir(destPath);
   });
+  after(function copyFixtures (done) {
+    wrench.rmdirRecursive(destPath, done);
+  });
   return destPath;
 };

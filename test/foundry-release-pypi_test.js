@@ -44,7 +44,7 @@ describe('Setting the version', function () {
   });
 });
 
-describe.skip('Registering', function () {
+describe('Registering', function () {
   function register(params) {
     before(function regsiterFn (done) {
       this.execStub = sinon.stub(shell, 'exec');
