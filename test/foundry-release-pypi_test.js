@@ -20,6 +20,11 @@ childProcess.exec = function () {
 };
 
 // Define our test
+var newParams = {
+  version: '0.1.0',
+  message: 'Release 0.1.0',
+  description: null
+};
 var oldParams = {
   version: '0.3.0',
   message: 'Release 0.3.0',
@@ -86,7 +91,7 @@ describe.only('Registering', function () {
     });
 
     it('does not register the package', function () {
-      expect(this.execStub.args[0][0]).to.not.contain('register');
+      expect(this.execStub.args).to.have.property('length', 0);
     });
   });
 
@@ -99,7 +104,7 @@ describe.only('Registering', function () {
     });
 
     it('does not register the package', function () {
-      expect(this.execStub.args[0][0]).to.not.contain('register');
+      expect(this.execStub.args).to.have.property('length', 0);
     });
 
     // it('does not register or publish the package', function () {
