@@ -20,22 +20,21 @@ childProcess.exec = function () {
 };
 
 // Define our test
-var newParams = {
-  version: '0.1.0',
-  message: 'Release 0.1.0',
-  description: null
-};
 var oldParams = {
   version: '0.3.0',
   message: 'Release 0.3.0',
   description: null
 };
-describe.only('Setting the version', function () {
-  describe('in a new PyPI package', function () {
+describe.skip('Setting the version', function () {
+  describe('in a PyPI package', function () {
     var fixtureDir = fixtureUtils.fixtureDir('pypi');
     before(function setVersion (done) {
       this.execStub = sinon.stub(shell, 'exec');
-      pypiRelease.setVersion(newParams, done);
+      pypiRelease.setVersion({
+        version: '0.1.0',
+        message: 'Release 0.1.0',
+        description: null
+      }, done);
     });
     after(function unstub () {
       this.execStub.restore();
@@ -49,41 +48,41 @@ describe.only('Setting the version', function () {
   });
 });
 
+describe.only('Registering', function () {
+  function register(params) {
+    before(function setVersion (done) {
+      this.execStub = sinon.stub(shell, 'exec');
+      pypiRelease.register(params, done);
+    });
+    after(function unstub () {
+      this.execStub.restore();
+      delete this.execStub;
+    });
+  }
 
-describe.skip('Registering', function () {
-    // it('registers the package', function () {
-    //   expect(this.execStubRegister.args[0]).to.deep.equal(['python setup.py register']);
-    // });
+  describe('a new PyPI package', function () {
+    var fixtureDir = fixtureUtils.fixtureDir('pypi');
+    register({
+      version: '0.1.0',
+      message: 'Release 0.1.0',
+      description: null
+    });
+
+    it('registers the package', function () {
+      expect(this.execStub.args[0]).to.deep.equal(['python setup.py register']);
+    });
 
     // it('publishes the package', function () {
     //   expect(this.execStubPublish.args[0][0]).to.contain(['python setup.py sdist']);
     // });
+  });
 
-  describe('in a registered PyPI package', function () {
+  describe('a registered PyPI package', function () {
     var fixtureDir = fixtureUtils.fixtureDir('pypi-registered');
-    before(function release (done) {
-      // Introduce custom stubbing
-      var program = foundryUtils.create({
-        allowSetVersion: true
-      });
-
-      // Monitor shell.exec calls
-      var that = this;
-      program.once('publish#before', function () {
-        that.execStub = sinon.stub(shell, 'exec');
-      });
-
-      // Run through the release
-      program.once('publish#after', done);
-      program.parse(['node', '/usr/bin/foundry', 'release', '0.3.0']);
-    });
-    after(function unstub () {
-      this.execStub.restore();
-    });
-
-    it('updates the setup.py', function () {
-      var pkgPython = fs.readFileSync(fixtureDir + '/setup.py', 'utf8');
-      expect(pkgPython).to.contain('version=\'0.3.0\'');
+    register({
+      version: '0.3.0',
+      message: 'Release 0.3.0',
+      description: null
     });
 
     it('does not register the package', function () {
@@ -93,33 +92,18 @@ describe.skip('Registering', function () {
 
   describe('in a private PyPI package', function () {
     var fixtureDir = fixtureUtils.fixtureDir('pypi-private');
-    before(function release (done) {
-      // Introduce custom stubbing
-      var program = foundryUtils.create({
-        allowSetVersion: true
-      });
-
-      // Monitor shell.exec calls
-      var that = this;
-      program.once('publish#before', function () {
-        that.execStub = sinon.stub(shell, 'exec');
-      });
-
-      // Run through the release
-      program.once('publish#after', done);
-      program.parse(['node', '/usr/bin/foundry', 'release', '0.3.0']);
-    });
-    after(function unstub () {
-      this.execStub.restore();
+    register({
+      version: '0.1.0',
+      message: 'Release 0.1.0',
+      description: null
     });
 
-    it('updates the setup.py', function () {
-      var pkgPython = fs.readFileSync(fixtureDir + '/setup.py', 'utf8');
-      expect(pkgPython).to.contain('version=\'0.3.0\'');
+    it('does not register the package', function () {
+      expect(this.execStub.args[0][0]).to.not.contain('register');
     });
 
-    it('does not register or publish the package', function () {
-      expect(this.execStub.args).to.have.property('length', 0);
-    });
+    // it('does not register or publish the package', function () {
+    //   expect(this.execStub.args).to.have.property('length', 0);
+    // });
   });
 });
