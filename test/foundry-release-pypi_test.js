@@ -25,7 +25,7 @@ var initialParams = {
   message: 'Release 0.1.0',
   description: null
 };
-describe.skip('Setting the version', function () {
+describe('Setting the version', function () {
   describe('in a PyPI package', function () {
     var fixtureDir = fixtureUtils.fixtureDir('pypi');
     before(function setVersion (done) {
@@ -44,7 +44,7 @@ describe.skip('Setting the version', function () {
   });
 });
 
-describe('Registering', function () {
+describe.skip('Registering', function () {
   function register(params) {
     before(function regsiterFn (done) {
       this.execStub = sinon.stub(shell, 'exec');
@@ -92,7 +92,7 @@ describe('Publishing', function () {
     publish(initialParams);
 
     it('publishes the package', function () {
-      expect(this.execStubPublish.args[0][0]).to.contain(['python setup.py sdist']);
+      expect(this.execStub.args[0][0]).to.contain(['python setup.py sdist']);
     });
   });
 
