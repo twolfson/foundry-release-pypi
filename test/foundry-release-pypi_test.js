@@ -1,13 +1,22 @@
 // Load in dependencies
 var fs = require('fs');
+var childProcess = require('child_process');
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var shell = require('shelljs');
 var fixtureUtils = require('./utils/fixtures');
-var foundryUtils = require('./utils/foundry');
 
-// Guarantee safeguards against exec are in place (see WARNING.md)
-var childUtils = require('./utils/child-process');
+// Stop childProcess exec and spawn calls too unless people opt in to our methods
+// DEV: This is borrowed from https://github.com/twolfson/foundry/blob/0.15.0/test/utils/child-process.js
+shell.exec = function () {
+  throw new Error('`shell.exec` was being called with ' + JSON.stringify(arguments));
+};
+childProcess.spawn = function () {
+  throw new Error('`childProcess.spawn` was being called with ' + JSON.stringify(arguments));
+};
+childProcess.exec = function () {
+  throw new Error('`childProcess.exec` was being called with ' + JSON.stringify(arguments));
+};
 
 // Define our test
 describe('A release', function () {
