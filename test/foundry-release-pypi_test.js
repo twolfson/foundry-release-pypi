@@ -55,7 +55,7 @@ describe.skip('Setting the version', function () {
 
 describe.only('Registering', function () {
   function register(params) {
-    before(function setVersion (done) {
+    before(function regsiterFn (done) {
       this.execStub = sinon.stub(shell, 'exec');
       pypiRelease.register(params, done);
     });
@@ -80,19 +80,6 @@ describe.only('Registering', function () {
     // it('publishes the package', function () {
     //   expect(this.execStubPublish.args[0][0]).to.contain(['python setup.py sdist']);
     // });
-  });
-
-  describe('a registered PyPI package', function () {
-    var fixtureDir = fixtureUtils.fixtureDir('pypi-registered');
-    register({
-      version: '0.3.0',
-      message: 'Release 0.3.0',
-      description: null
-    });
-
-    it('does not register the package', function () {
-      expect(this.execStub.args).to.have.property('length', 0);
-    });
   });
 
   describe('in a private PyPI package', function () {
