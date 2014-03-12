@@ -33,14 +33,13 @@ var oldParams = {
 describe.only('Setting the version', function () {
   describe('in a new PyPI package', function () {
     var fixtureDir = fixtureUtils.fixtureDir('pypi');
-
     before(function setVersion (done) {
-      // Introduce custom stubbing
-      this.execStubRegister = sinon.stub(shell, 'exec');
+      this.execStub = sinon.stub(shell, 'exec');
       pypiRelease.setVersion(newParams, done);
     });
     after(function unstub () {
-      this.execStubRegister.restore();
+      this.execStub.restore();
+      delete this.execStub;
     });
 
     it('updates the `setup.py` version', function () {
