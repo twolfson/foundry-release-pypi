@@ -37,19 +37,21 @@ describe.only('Setting the version', function () {
     before(function setVersion (done) {
       // Introduce custom stubbing
       this.execStubRegister = sinon.stub(shell, 'exec');
-      pypiRelease.setVersion(initialParams, done);
+      pypiRelease.setVersion(newParams, done);
     });
     after(function unstub () {
-      this.execStubPublish.restore();
+      this.execStubRegister.restore();
     });
 
     it('updates the `setup.py` version', function () {
       var pkgPython = fs.readFileSync(fixtureDir + '/setup.py', 'utf8');
       expect(pkgPython).to.contain('version=\'0.1.0\'');
     });
+  });
 });
 
 
+describe.skip('Registering', function () {
     // it('registers the package', function () {
     //   expect(this.execStubRegister.args[0]).to.deep.equal(['python setup.py register']);
     // });
