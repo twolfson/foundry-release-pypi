@@ -25,12 +25,12 @@ var initialParams = {
   message: 'Release 0.1.0',
   description: null
 };
-describe('Setting the version', function () {
+describe('Updating files', function () {
   describe('in a PyPI package', function () {
     var fixtureDir = fixtureUtils.fixtureDir('pypi');
-    before(function setVersion (done) {
+    before(function updateFiles (done) {
       this.execStub = sinon.stub(shell, 'exec');
-      pypiRelease.setVersion(initialParams, done);
+      pypiRelease.updateFiles(initialParams, done);
     });
     after(function unstub () {
       this.execStub.restore();
