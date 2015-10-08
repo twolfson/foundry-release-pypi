@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+// Load in our dependencies
+var FoundryReleaseBase = require('foundry-release-base');
+var foundryReleasePypi = require('../');
+var pkg = require('../package.json');
+
+// Define our parser
+var program = new FoundryReleaseBase(foundryReleasePypi);
+program.version(pkg.version);
+
+// Parse our CLI arguments
+program.parse(process.argv);
