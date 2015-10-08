@@ -22,8 +22,11 @@
     }
   ],
   "main": "lib/foundry-release-pypi",
+  "bin": {
+    "foundry-release-pypi": "bin/foundry-release-pypi"
+  },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
     "test": "(test \"$VAGRANT\" = \"true\" || test \"$TRAVIS\" = \"true\" || (echo \"Tests must be run in enclosed environment (e.g. Vagrant, Travis) to prevent accidental publishes\n\" 1>&2 && exit 1)) && mocha --recursive"
@@ -33,11 +36,14 @@
     "shelljs": "~0.2.6"
   },
   "devDependencies": {
-    "mocha": "~1.11.0",
+    "chai": "~1.9.0",
+    "foundry": "~4.0.3",
+    "foundry-release-git": "~2.0.1",
+    "foundry-release-npm": "~2.0.1",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-watch": "~0.4.0",
-    "chai": "~1.9.0",
+    "mocha": "~1.11.0",
     "sinon": "~1.9.0",
     "wrench": "~1.5.8"
   },
@@ -50,5 +56,11 @@
     "register",
     "dist",
     "upload"
-  ]
+  ],
+  "foundry": {
+    "releaseCommands": [
+      "foundry-release-git",
+      "foundry-release-npm"
+    ]
+  }
 }
