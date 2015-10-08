@@ -1,4 +1,6 @@
 # foundry-release-pypi changelog
+2.0.0 - Added CLI support for 2.0.0 spec
+
 1.1.0 - Added `specVersion` to support 1.1.0 spec
 
 1.0.1 - Added fix for `node` in Travis CI
