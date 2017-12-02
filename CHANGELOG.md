@@ -1,4 +1,6 @@
 # foundry-release-pypi changelog
+3.0.0 - Moved from `setup.py upload` to `twine upload`
+
 2.0.1 - Removed legacy `specVersion` export
 
 2.0.0 - Added CLI support for 2.0.0 spec
