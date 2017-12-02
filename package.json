@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "foundry-release-base": "~1.0.1",
+    "shell-quote": "~1.6.1",
     "shelljs": "~0.2.6"
   },
   "devDependencies": {
