@@ -1,4 +1,6 @@
 # foundry-release-pypi changelog
+3.0.1 - Moved to Node.js>=4
+
 3.0.0 - Moved from `setup.py upload` to `twine upload`
 
 2.0.1 - Removed legacy `specVersion` export
