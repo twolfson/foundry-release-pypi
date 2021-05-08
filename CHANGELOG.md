@@ -1,4 +1,6 @@
 # foundry-release-pypi changelog
+3.0.2 - Upgraded packages to fix deep vulnerability, via @striezel in #2
+
 3.0.1 - Moved to Node.js>=4
 
 3.0.0 - Moved from `setup.py upload` to `twine upload`

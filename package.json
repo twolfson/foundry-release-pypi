@@ -1,7 +1,7 @@
 {
   "name": "foundry-release-pypi",
   "description": "pypi release library for foundry",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "homepage": "https://github.com/twolfson/foundry-release-pypi",
   "author": {
     "name": "Todd Wolfson",
