@@ -1,4 +1,6 @@
 # foundry-release-pypi changelog
+3.0.3 - Installed shell-quote@1.7.3 to fix execution vulnerability
+
 3.0.2 - Upgraded packages to fix deep vulnerability, via @striezel in #2
 
 3.0.1 - Moved to Node.js>=4
